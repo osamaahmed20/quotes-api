@@ -65,6 +65,19 @@ app.post('/quotes', function(req, res){
     });
 });
 
+app.delete('/quotes/:id', function(req, res){
+    let q = 'DELETE FROM quotes WHERE rowid = ?';
+    db.run(q, [req.params.id], function(err){
+        if(err){
+            res.send(err.message);
+        }
+        else{
+            console.log('Deleted quote with id: ' + req.params.id);
+            res.send('Deleted quote with id:' + req.params.id);
+        }
+    });
+});
+
 app.listen(port, function(){
     console.log('Listening on port ' + port);
 });
