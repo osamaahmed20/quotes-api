@@ -53,8 +53,16 @@ app.get('/quotes/:id', function(req, res){
 });
 
 app.post('/quotes', function(req, res){
-    console.log("Insert a new quote: " + req.body.quote);
-    res.json(req.body);
+    let q = 'INSERT INTO quotes VALUES (?, ?, ?)';
+    db.run(q, [req.body.quote, req.body.author, parseInt(req.body.year)], function(err){
+        if(err){
+            res.send(err.message);
+        }
+        else{
+            console.log('Inserted quote to database');
+            res.send('Inserted quote to database.');
+        }
+    });
 });
 
 app.listen(port, function(){
