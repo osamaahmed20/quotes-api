@@ -15,7 +15,7 @@ app.get('/', function(request, response){
 
 app.get('/quotes', function(req, res){
     if(req.query.year){
-        q = 'SELECT * FROM quotes WHERE year = ' + req.query.year;
+        let q = 'SELECT * FROM quotes WHERE year = ' + req.query.year;
         db.all(q, function(err, rows){
             if(err){
                 res.send(err.message);
@@ -40,8 +40,16 @@ app.get('/quotes', function(req, res){
 });
 
 app.get('/quotes/:id', function(req, res){
-    console.log("return quote with the ID: " + req.params.id);
-    res.send("Return quote with the ID: " + req.params.id);
+    let q = 'SELECT * FROM quotes WHERE rowid = ?';
+    db.get(q, [req.params.id], function(err, row){
+        if(err){
+            res.send(err.message);
+        }
+        else{
+            console.log("Return quote with id: " + req.params.id);
+            res.json(row)
+        }
+    });
 });
 
 app.post('/quotes', function(req, res){
