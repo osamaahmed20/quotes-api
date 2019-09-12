@@ -1,3 +1,11 @@
+/**
+ * A basic REST API that stores and provides access to a set of quotes. Each quote will have the following information associated with it:
+ * id: a unique number to reference the quote
+ * quote: a string containing the quote itself
+ * author: a string containing the author's name
+ * year: the year the quote was recorded or discovered
+ */
+
 var express = require('express');
 var app = express();
 
@@ -13,6 +21,11 @@ app.get('/', function(request, response){
     response.send('Get request received at /');
 });
 
+/*
+** Returns quotes specified by the year query string. 
+** If no year specified then return all quotes
+** Quotes are returned as JSON
+*/
 app.get('/quotes', function(req, res){
     if(req.query.year){
         let q = 'SELECT * FROM quotes WHERE year = ' + req.query.year;
@@ -39,6 +52,10 @@ app.get('/quotes', function(req, res){
     }
 });
 
+/*
+** Returns quote specified by id. 
+** Quotes are returned as JSON
+*/
 app.get('/quotes/:id', function(req, res){
     let q = 'SELECT * FROM quotes WHERE rowid = ?';
     db.get(q, [req.params.id], function(err, row){
@@ -52,6 +69,9 @@ app.get('/quotes/:id', function(req, res){
     });
 });
 
+/*
+** Adds quote, author, and year as an entry to database.
+*/
 app.post('/quotes', function(req, res){
     let q = 'INSERT INTO quotes VALUES (?, ?, ?)';
     db.run(q, [req.body.quote, req.body.author, parseInt(req.body.year)], function(err){
@@ -65,6 +85,11 @@ app.post('/quotes', function(req, res){
     });
 });
 
+/*
+** Deletes quote entry in database by id. 
+** Notice that id does not correspond to the number of quotes in database presently.
+** Each quote entry assigned an id when added and id is unaffected by deleting. 
+*/
 app.delete('/quotes/:id', function(req, res){
     let q = 'DELETE FROM quotes WHERE rowid = ?';
     db.run(q, [req.params.id], function(err){
