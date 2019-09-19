@@ -13,10 +13,10 @@ var app = express();
 var bodyParser = require('body-parser');
 
 var path = require('path');
-
+/*
 var sqlite3 = require('sqlite3');
 var db = new sqlite3.Database('quotes.db');
-
+*/
 // mounts BodyParser as middleware
 app.use(bodyParser.urlencoded({ extended: true }));
 
