@@ -18,7 +18,7 @@ var db = new sqlite3.Database('quotes.db');
 // mounts BodyParser as middleware
 app.use(bodyParser.urlencoded({ extended: true }));
 
-var port = 3000;
+var port = process.env.PORT || 3000;
 
 // ROUTES
 /* 
