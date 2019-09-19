@@ -12,6 +12,8 @@ var app = express();
 
 var bodyParser = require('body-parser');
 
+var path = require('path');
+
 var sqlite3 = require('sqlite3');
 var db = new sqlite3.Database('quotes.db');
 
@@ -25,7 +27,8 @@ var port = process.env.PORT || 3000;
 ** Acknowledges that request for home page has been recieved.
 */
 app.get('/', function(request, response){
-    response.send('Get request received at /');
+    console.log('Get request received at /')
+    response.sendFile(path.join(__dirname+'/home.html'));
 });
 
 /*
