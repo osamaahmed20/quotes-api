@@ -31,6 +31,7 @@ app.get('/', function(request, response){
     response.sendFile(path.join(__dirname+'/home.html'));
 });
 
+
 /*
 ** Returns quotes specified by the year query string. 
 ** If no year specified then return all quotes
@@ -38,6 +39,7 @@ app.get('/', function(request, response){
 ** Ex: home/quotes returns all quotes
 ** Ex: home/quotes=1900 return quotes from year 1900
 */
+/*
 app.get('/quotes', function(req, res){
     if(req.query.year){
         let q = 'SELECT * FROM quotes WHERE year = ' + req.query.year;
@@ -69,6 +71,7 @@ app.get('/quotes', function(req, res){
 ** Quotes are returned as JSON
 ** Ex: home/quotes/:1 return the quote with id=1
 */
+/*
 app.get('/quotes/:id', function(req, res){
     let q = 'SELECT * FROM quotes WHERE rowid = ?';
     db.get(q, [req.params.id], function(err, row){
@@ -85,6 +88,7 @@ app.get('/quotes/:id', function(req, res){
 /*
 ** Adds quote, author, and year as an entry to database.
 */
+/*
 app.post('/quotes', function(req, res){
     let q = 'INSERT INTO quotes VALUES (?, ?, ?)';
     db.run(q, [req.body.quote, req.body.author, parseInt(req.body.year)], function(err){
@@ -103,6 +107,7 @@ app.post('/quotes', function(req, res){
 ** Notice that id does not correspond to the number of quotes in database presently.
 ** Each quote entry assigned an id when added and id is unaffected by deleting. 
 */
+/*
 app.delete('/quotes/:id', function(req, res){
     let q = 'DELETE FROM quotes WHERE rowid = ?';
     db.run(q, [req.params.id], function(err){
@@ -115,6 +120,7 @@ app.delete('/quotes/:id', function(req, res){
         }
     });
 });
+*/
 
 app.listen(port, function(){
     console.log('Listening on port ' + port);
